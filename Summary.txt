@@ -1,0 +1,1 @@
+These folders demonstrate my skill in coding and this is my first project I have done in coding. The main file to make the project work is Main.py which is in the Main_folder. The code is a WIP.
