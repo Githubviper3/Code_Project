@@ -1,7 +1,6 @@
 import pygame
 import sys
 import os
-sys.path.append(os.getcwd()) 
 from Extras.MyUtils import Bordered_blit_line,blit_line
 from Extras.MyColours import *
 from Extras.Buttons import EasyButton,create_buttons
