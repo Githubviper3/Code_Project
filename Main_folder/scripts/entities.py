@@ -30,7 +30,7 @@ class PhysicsEntity:
             self.animation = self.game.assets[self.type + '/' + self.action].copy()
 
     def update(self, tilemap, movement=(0, 0)):
-        if not self.game.Paused:
+        if not (self.game.Paused or self.game.Endlevel) :
             self.onground = tilemap.solid_check((self.rect().x, self.pos[1] + 23))
             self.collisions = {'up': False, 'down': False, 'right': False, 'left': False}
 
@@ -165,7 +165,7 @@ class Player(PhysicsEntity):
     def update(self, tilemap, extra,  movement=(0, 0)):
         super().update(tilemap, movement=movement)
 
-        if not self.game.Paused:
+        if not (self.game.Paused or self.game.Endlevel):
             self.air_time += 1
         if self.wall_slide:
             self.jumps =1
@@ -277,11 +277,12 @@ class Player(PhysicsEntity):
 
 
     def jump(self):
+    
         if self.jumps ==1 and not self.wall_slide:
             for i in range(7):
                 self.game.particles.append(
                     Particle(self.game, "particle", (self.rect().centerx, self.rect().centery - 3), (0,random.random()*2),
-                             frame=i))
+                            frame=i))
         if self.wall_slide:
             if self.flip and self.last_movement[0] < 0:
                 self.velocity[0] = 3.5
@@ -301,7 +302,7 @@ class Player(PhysicsEntity):
             self.jumps -= 1
             self.air_time = 5
             return True
-
+        
     def drop(self):
         if not self.droping and not self.onground:
             self.game.sfx["dash"].play()

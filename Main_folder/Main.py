@@ -249,7 +249,7 @@ class Start(BasicPage):
                 os.environ['SDL_VIDEO_CENTERED'] = "1"
                 self.System.Game.level = int(button.name[-1])
                 self.System.Game.PlayerSpawners = False
-                self.screen = pygame.display.set_mode((1280, 720))
+                self.screen = pygame.display.set_mode((640,360))
                 self.System.Game.run()
 
     def UpdateDisplay(self):

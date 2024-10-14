@@ -48,6 +48,12 @@ def xflip(image, xbool=True):
 def resize(image,width,height):
    return pygame.transform.scale(image,(width,height))
 
+def resizeall(images,width,height):
+    output = []
+    for image in images:
+        output.append(resize(image,width,height))
+    return output
+
 def load_images(path):
     images = []
     for img_name in (os.listdir(BASE_IMG_PATH + path)):

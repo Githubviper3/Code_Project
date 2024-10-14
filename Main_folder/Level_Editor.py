@@ -1,6 +1,7 @@
 import sys
-
+import os
 import pygame
+sys.path.append(os.getcwd())
 from scripts.utils import load_images,lightgray,blit_line,imageload
 from scripts.tilemap import Tilemap,BackgroundTiles,Editor_layers
 
@@ -45,7 +46,7 @@ class Editor:
         self.movement = [False, False, False, False]
 
         tilemap = Tilemap(self)
-        Extra = BackgroundTiles(self,editor=True)
+        Extra = BackgroundTiles(self)
         Background = BackgroundTiles(self)
        
 

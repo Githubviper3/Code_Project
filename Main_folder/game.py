@@ -219,6 +219,7 @@ class Game:
                 self.display_2.blit(self.assets['background'], (0, 0))
                 self.screenshake = max(0, self.screenshake - 1)
 
+
                 if self.transition < 0:
                     self.transition += 1
 
@@ -231,14 +232,14 @@ class Game:
                 self.scroll[0] += (self.player.rect().centerx - self.display.get_width() / 2 - self.scroll[0]) / 30
                 self.scroll[1] += (self.player.rect().centery - self.display.get_height() / 2 - self.scroll[1]) / 30
                 render_scroll = (int(self.scroll[0]), int(self.scroll[1]))
-
+               
                 for rect in self.leaf_spawners:
                     if random.random() * 49999 < rect.width * rect.height:
                         pos = (rect.x + random.random() * rect.width, rect.y + random.random() * rect.height)
                         self.particles.append(
                             Particle(self, 'leaf', pos, velocity=[-0.1, 0.3], frame=random.randint(0, 20)))
 
-                if not self.Paused:
+                if not (self.Paused or self.Endlevel):
                     self.clouds.update()
                 self.clouds.render(self.display_2, offset=render_scroll)
 
@@ -272,7 +273,7 @@ class Game:
 
 
                 for projectile in self.projectiles.copy():
-                    if not self.Paused:
+                    if not (self.Paused or self.Endlevel):
                         projectile[0][0] += projectile[1]
                         projectile[2] += 1
                     img = self.assets['projectile']
@@ -310,6 +311,7 @@ class Game:
                 if self.Endlevel:
                     self.display.blit(self.assets["LevelClear"][0], (0, 30))
                     blit_line(self.display,[f"Score: {self.player.score}",f"Deaths: {self.deaths}",f"Gems: {self.player.Gems}",f"Coins: {self.player.Coins}"],(160,10),font=self.pause_menu_font,color=(255,255,255))
+
                     self.timegap += 1
                     if self.timegap >= 3*60:
                         self.Endlevel = False
@@ -329,6 +331,8 @@ class Game:
 
                 else:
                     blit_line(self.display,[f"Gems: {self.player.Gems}",f"Coins: {self.player.Coins}",f"Score: {self.player.score}"], (0, 10), font=pygame.font.SysFont('Arial', 10) , color=(255, 255, 255))
+                    if not self.player.dashing:
+                        blit_line(self.display,[f"Can Dash: {not self.player.Gems}"], (100, 10), font=pygame.font.SysFont('Arial', 10) , color=(255, 255, 255))
 
                 display_mask = pygame.mask.from_surface(self.display)
                 display_sillhouette = display_mask.to_surface(setcolor=(0, 0, 0, 180), unsetcolor=transparent)
@@ -366,6 +370,7 @@ class Game:
                             self.movement[0] = False
                         if event.key == pygame.K_RIGHT:
                             self.movement[1] = False
+                        
 
                 if self.transition:
                     transition_surf = pygame.Surface(self.display.get_size())
