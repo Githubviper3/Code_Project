@@ -107,7 +107,8 @@ class Game:
 
 
     def load_level(self, map_id):
-        self.Username = self.System.Start.Playername
+        # self.Username = self.System.Start.Playername
+        self.Username = "Declan"
         self.Userids = Get_ids(self.Username)[:2]
         self.player.score = 0
         self.Coins = []
@@ -370,6 +371,7 @@ class Game:
                             self.movement[0] = False
                         if event.key == pygame.K_RIGHT:
                             self.movement[1] = False
+
                         
 
                 if self.transition:
