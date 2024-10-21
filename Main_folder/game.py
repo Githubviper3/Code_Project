@@ -103,6 +103,7 @@ class Game:
         self.Coins = []
         self.Gems = []
         self.deaths = 0
+        self.starttime = 0
 
 
 
@@ -178,7 +179,7 @@ class Game:
                 pygame.mixer.pause()
                 self.System.Changepage(2)
 
-
+            self.starttime += 1
             if self.Paused:
 
                 for event in pygame.event.get():
@@ -363,6 +364,8 @@ class Game:
                                 self.movement[1] = True
                             if event.key == pygame.K_UP:
                                 if self.player.jump():
+                                    self.starttime = 0
+                                    self.starttime += 1
                                     self.sfx["jump"].play()
                             if event.key == pygame.K_x:
                                 self.player.dash()
@@ -371,6 +374,10 @@ class Game:
                             self.movement[0] = False
                         if event.key == pygame.K_RIGHT:
                             self.movement[1] = False
+                        if event.key == pygame.K_UP:
+                            print(self.starttime)
+                            self.starttime = 0
+
 
                         
 
@@ -386,7 +393,7 @@ class Game:
                 screenshake_offset = (random.random() * self.screenshake - self.screenshake / 2,
                                       random.random() * self.screenshake - self.screenshake / 2)
                 self.screen.blit(pygame.transform.scale(self.display_2, self.screen.get_size()), screenshake_offset)
-
+            
 
             pygame.display.update()
             self.clock.tick(60)

@@ -159,7 +159,6 @@ class Player(PhysicsEntity):
         self.dashing = 0
         self.droping = 0
         self.score,self.Coins , self.Gems = 0,0,0
-        self.starttime= 0 
 
 
 
@@ -171,8 +170,6 @@ class Player(PhysicsEntity):
         if self.wall_slide:
             self.jumps =1
         if self.collisions['down']:
-            print(self.starttime)
-            self.starttime= 0
             self.air_time = 0
             self.jumps = 2
             self.droping = 0
@@ -286,8 +283,7 @@ class Player(PhysicsEntity):
                 self.game.particles.append(
                     Particle(self.game, "particle", (self.rect().centerx, self.rect().centery - 3), (0,random.random()*2),
                             frame=i))
-        self.starttime=0
-        self.starttime += 1
+        
         if self.wall_slide:
             if self.flip and self.last_movement[0] < 0:
                 self.velocity[0] = 3.5
