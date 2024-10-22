@@ -1,2 +1,8 @@
 The main file to make the project work is Main.py which is in the Main_folder. The code is a WIP.
-Next step is to add pycharm project venv folder
+In vscode 
+ctrl+shift+p then type in or select python: Select interpreter 
+create virtual environment and select venv
+select your current python interpreter or download 3.10 minimum.
+This image should show below
+![image](https://github.com/user-attachments/assets/ae471422-4411-4eda-a4f5-c652ffd6aac4)
+check the box and you are fully set up
