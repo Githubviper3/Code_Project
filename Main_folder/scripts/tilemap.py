@@ -63,7 +63,7 @@ class Tilemap:
         return tiles
 
     def save(self, base=baseMapPath):
-        self.savedlevelssize = str(len(os.listdir("Main_Folder\Maps")) + 1)
+        self.savedlevelssize = str(len(os.listdir(baseMapPath)) + 1)
         filename= base + self.savedlevelssize + ".json"
         f = open(filename, 'w')
         json.dump({'tilemap': self.tilemap, 'tile_size': self.tile_size, 'offgrid': self.offgrid_tiles}, f)
