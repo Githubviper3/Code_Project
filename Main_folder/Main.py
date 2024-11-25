@@ -384,7 +384,7 @@ class PagesSystem:
         self.Pages = [self.Login, self.Register, self.Gamemnenu, self.Start, self.Leaderboards, self.Shop,
                       self.Settings]
         self.Game = Game(self)
-        self.Pageindex = 3
+        self.Pageindex = 0
         self.Current_Page = self.Pages[self.Pageindex]
 
     def Changepage(self, increase):

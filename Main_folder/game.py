@@ -4,7 +4,7 @@ import math
 import random
 import pygame
 
-from scripts.utils import load_image, load_images, Animation,transparent,imageload,resize,blit_line
+from scripts.utils import load_image, load_images, Animation,transparent,imageload,resize,blit_line,resizeall
 from scripts.entities import Player, Enemy
 from scripts.tilemap import Tilemap,BackgroundTiles
 from scripts.clouds import Clouds
@@ -37,15 +37,16 @@ class Game:
         self.PlayerSpawners= False
         self.Endlevel = False
         size = self.screen.get_size()[0]/3 , self.screen.get_size()[1]/3
+        tilesize = self.tilemap.tile_size
 
 
 
 
         self.assets = {
-            'decor': load_images('tiles/decor'),
-            'grass': load_images('tiles/grass'),
-            'large_decor': load_images('tiles/large_decor'),
-            'stone': load_images('tiles/stone'),
+            'decor': resizeall(load_images('tiles/decor'),tilesize,tilesize),
+            'grass': resizeall(load_images('tiles/grass'),tilesize,tilesize),
+            'large_decor': resizeall(load_images('tiles/large_decor'),tilesize,tilesize),
+            'stone': resize(load_images('tiles/stone'),tilesize,tilesize),
             'player': load_image('entities/player.png'),
             'background': load_image('background.png'),
             'clouds': load_images('clouds'),
@@ -108,8 +109,7 @@ class Game:
 
 
     def load_level(self, map_id):
-        # self.Username = self.System.Start.Playername
-        self.Username = "Declan"
+        self.Username = self.System.Start.Playername
         self.Userids = Get_ids(self.Username)[:2]
         self.player.score = 0
         self.Coins = []

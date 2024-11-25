@@ -2,7 +2,7 @@ import sys
 import os
 import pygame
 sys.path.append(os.getcwd())
-from scripts.utils import load_images,lightgray,blit_line,imageload
+from scripts.utils import load_images,lightgray,blit_line,imageload,resizeall
 from scripts.tilemap import Tilemap,BackgroundTiles,Editor_layers
 
 RENDER_SCALE = 2
@@ -16,22 +16,29 @@ class Editor:
         self.screen = pygame.display.set_mode((640, 480))
         self.display = pygame.Surface((320, 240))
         self.clock = pygame.time.Clock()
+        
+        tilemap = Tilemap(self,16)
+        Extra = BackgroundTiles(self,16)
+        Background = BackgroundTiles(self,16)
+       
+
+        self.Layer = Editor_layers(Background,tilemap,Extra)
 
 
         self.assets = {
-            'grass': load_images('tiles/grass'),
-            'stone': load_images('tiles/stone'),
-            "spawners": load_images("tiles/spawners"),
-            "Extra_grass": load_images("tiles/Extra_grass"),
-            "Ramps_dirt": load_images("tiles/Ramps_dirt"),
-            "Ramps_grass": load_images("tiles/Ramps_grass"),
-            "Extra": load_images("tiles/Extra"),
+            'grass': resizeall(load_images('tiles/grass'), tilemap.tile_size, tilemap.tile_size),
+            'stone': resizeall(load_images('tiles/stone'), tilemap.tile_size, tilemap.tile_size),
+            "spawners": load_images('tiles/spawners'),
+            "Extra_grass": resizeall(load_images('tiles/Extra_grass'), Extra.tile_size, Extra.tile_size),
+            "Ramps_dirt": resizeall(load_images("tiles/Ramps_dirt"), tilemap.tile_size, tilemap.tile_size),
+            "Ramps_grass": resizeall(load_images("tiles/Ramps_grass"), tilemap.tile_size, tilemap.tile_size),
+            "Extra": resizeall(load_images("tiles/Extra"), tilemap.tile_size, tilemap.tile_size),
             'decor': load_images('tiles/decor'),
             'large_decor': load_images('tiles/large_decor'),
-            "Arrows_D": load_images("tiles/Arrows_diagonal"),
-            "Arrows_S": load_images("tiles/Arrows_straight"),
-            "BG_grass": load_images("tiles/Background_grass"),
-             "Flag": [imageload("Flag"),imageload("Flag2")],
+            "Arrows_D": resizeall(load_images("tiles/Arrows_diagonal"), tilemap.tile_size, tilemap.tile_size),
+            "Arrows_S": resizeall(load_images("tiles/Arrows_straight"), tilemap.tile_size, tilemap.tile_size),
+            "BG_grass": resizeall(load_images("tiles/Background_grass"), tilemap.tile_size, tilemap.tile_size),
+            "Flag": [imageload("Flag"),imageload("Flag2")],
             "Coin": [imageload("tiles/Coin")],
             "Gem": [imageload("tiles/Gem")]
 
@@ -44,13 +51,6 @@ class Editor:
         extraassets = ["Arrows_D","Arrows_S","Flag","Coin","Gem"]
         self.assetslist = [levelassets,bgassets,extraassets]
         self.movement = [False, False, False, False]
-
-        tilemap = Tilemap(self)
-        Extra = BackgroundTiles(self)
-        Background = BackgroundTiles(self)
-       
-
-        self.Layer = Editor_layers(Background,tilemap,Extra)
 
         self.scroll = [0, 0]
 
